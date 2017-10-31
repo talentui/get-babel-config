@@ -1,5 +1,6 @@
 // const envConst = require("../constants.js");
 module.exports = function(options = {}) {
+    let version = '0.2.0';
     let {
         targetBrowsers,
         targets: tgt,
