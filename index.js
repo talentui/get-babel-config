@@ -8,7 +8,7 @@ module.exports = function(options = {}) {
         engines = ['react']
     } = options;
 
-    let dev = 'development';
+    let strDev = 'development';
     const env = process.env.NODE_ENV || 'development';
 
     const userHasDefinedTargets = !!(targetBrowsers || tgt);
@@ -42,7 +42,7 @@ module.exports = function(options = {}) {
                 include: includeFeature,
                 exclude: transformExclude,
                 useBuiltIns: true,
-                debug: env === dev
+                debug: env === strDev
             }
         ],
         "stage-0",
