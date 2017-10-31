@@ -1,0 +1,45 @@
+{
+  "name": "@talentui/get-babel-config",
+  "version": "0.0.0-development",
+  "description": "talent ui 2.0 base babel configuration",
+  "main": "index.js",
+  "scripts": {
+    "precm": "npm run data && jest",
+    "test": "jest",
+    "data": "node ./data/generate-data.js",
+    "cm": "git-cz",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/talentui/get-babel-config.git"
+  },
+  "keywords": [
+    "babel",
+    "talentui"
+  ],
+  "author": "Guoming Li <it1011@qq.com> (http://lixinchi.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/talentui/get-babel-config/issues"
+  },
+  "homepage": "https://github.com/talentui/get-babel-config#readme",
+  "dependencies": {
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-env": "^1.6.1",
+    "lodash.uniq": "^4.5.0"
+  },
+  "devDependencies": {
+    "commitizen": "2.9.6",
+    "cz-conventional-changelog": "2.1.0",
+    "husky": "0.14.3",
+    "jest": "^21.2.1",
+    "semantic-release": "^8.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
