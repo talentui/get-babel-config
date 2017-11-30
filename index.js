@@ -1,6 +1,6 @@
 // const envConst = require("../constants.js");
-module.exports = function(options = {}) {
-    let version = '0.2.0';
+const path = require('path');
+module.exports = function (options = {}) {
     let {
         targetBrowsers,
         targets: tgt,
@@ -11,6 +11,8 @@ module.exports = function(options = {}) {
 
     let strDev = 'development';
     const env = process.env.NODE_ENV || 'development';
+
+    let isDev = env === strDev;
 
     const userHasDefinedTargets = !!(targetBrowsers || tgt);
 
@@ -23,7 +25,7 @@ module.exports = function(options = {}) {
         ? []
         : require("./data/plugins.json");
     // 在innerPlugins和用户配置的include中去掉重复的部分。
-    var includeFeature = require("lodash.uniq")([
+    let includeFeature = require("lodash.uniq")([
         ...innerPlugins,
         ...transformInclude
     ]);
@@ -34,7 +36,7 @@ module.exports = function(options = {}) {
             includeFeature
         );
 
-    var presets = [
+    let presets = [
         [
             "env",
             {
@@ -43,16 +45,23 @@ module.exports = function(options = {}) {
                 include: includeFeature,
                 exclude: transformExclude,
                 useBuiltIns: true,
-                debug: env === strDev
+                debug: isDev
             }
         ],
         "stage-0",
-    ];
+    ], plugins = ["transform-decorators-legacy"];
 
-    if(engines.indexOf('react') !== -1) presets.push('react');
+    let hasReact = engines.indexOf('react') !== -1;
+
+    if (hasReact) {
+        presets.push('react');
+        if (isDev) {
+            plugins.push("transform-react-jsx-source");
+        }
+    };
 
     return {
         presets,
-        plugins: ["syntax-dynamic-import", "transform-decorators-legacy"]
+        plugins
     };
 };
