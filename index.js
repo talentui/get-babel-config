@@ -1,16 +1,15 @@
 // const envConst = require("../constants.js");
-const path = require('path');
-module.exports = function (options = {}) {
+const path = require("path");
+module.exports = function(options = {}) {
     let {
         targetBrowsers,
         targets: tgt,
         transformInclude = [],
-        transformExclude = [],
-        engines = ['react']
+        engines = ["react"]
     } = options;
 
-    let strDev = 'development';
-    const env = process.env.NODE_ENV || 'development';
+    let strDev = "development";
+    const env = process.env.NODE_ENV || "development";
 
     let isDev = env === strDev;
 
@@ -29,36 +28,36 @@ module.exports = function (options = {}) {
         ...innerPlugins,
         ...transformInclude
     ]);
-    // 如果用户配置了transformExclude与include特性有重复的话，去掉include中的重复的
-    if (transformExclude.length)
-        includeFeature = require("./array-compete.js")(
-            transformExclude,
-            includeFeature
-        );
 
     let presets = [
-        [
-            "env",
-            {
-                targets,
-                modules: env === 'test' ? "commonjs" : false,
-                include: includeFeature,
-                exclude: transformExclude,
-                useBuiltIns: true,
-                debug: isDev
-            }
+            [
+                "@babel/preset-env",
+                {
+                    targets,
+                    modules: env === "test" ? "commonjs" : false,
+                    include: includeFeature,
+                    useBuiltIns: "usage",
+                    debug: isDev
+                }
+            ]
         ],
-        "stage-0",
-    ], plugins = ["transform-decorators-legacy"];
+        plugins = [
+            "@babel/plugin-proposal-class-properties",
+            "@babel/plugin-proposal-decorators",
+            "@babel/plugin-syntax-dynamic-import",
+            "@babel/plugin-transform-runtime"
+        ];
 
-    let hasReact = engines.indexOf('react') !== -1;
+    let hasReact = engines.indexOf("react") !== -1;
 
     if (hasReact) {
-        presets.push('react');
-        if (isDev) {
-            plugins.push("transform-react-jsx-source");
-        }
-    };
+        [
+            "@babel/preset-react",
+            {
+                development: isDev
+            }
+        ];
+    }
 
     return {
         presets,

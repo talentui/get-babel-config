@@ -20,5 +20,5 @@ const generateData = function(source, target) {
     pluginFile.close();
 };
 
-generateData("babel-preset-env/data/plugins.json", 'plugins.json');
-generateData("babel-preset-env/data/built-ins.json", 'polyfill.json')
+generateData("@babel/preset-env/data/plugins.json", 'plugins.json');
+generateData("@babel/preset-env/data/built-ins.json", 'polyfill.json')
