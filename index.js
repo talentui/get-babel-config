@@ -43,7 +43,9 @@ module.exports = function(options = {}) {
         ],
         plugins = [
             "@babel/plugin-proposal-class-properties",
-            "@babel/plugin-proposal-decorators",
+            ["@babel/plugin-proposal-decorators", {
+                legacy: true
+            }],
             "@babel/plugin-syntax-dynamic-import",
             "@babel/plugin-transform-runtime"
         ];
@@ -51,12 +53,12 @@ module.exports = function(options = {}) {
     let hasReact = engines.indexOf("react") !== -1;
 
     if (hasReact) {
-        [
+        presets.push([
             "@babel/preset-react",
             {
                 development: isDev
             }
-        ];
+        ]);
     }
 
     return {
