@@ -2,7 +2,6 @@
 const path = require("path");
 module.exports = function(options = {}) {
     let {
-        targetBrowsers,
         targets: tgt,
         transformInclude = [],
         engines = ["react"]
@@ -13,21 +12,26 @@ module.exports = function(options = {}) {
 
     let isDev = env === strDev;
 
-    const userHasDefinedTargets = !!(targetBrowsers || tgt);
+    // const userHasDefinedTargets = !!(targetBrowsers || tgt);
 
     // // 如果没有传递目标浏览器，则配置支持使用chrome > 58版本，减少plugins和polyfills的数量
+    // targets = tgt || {
+    //     browsers: targetBrowsers || "chrome >= 58"
+    // };
+    // //如果配置了targets， 测不使用内置plugins
+    // const innerPlugins = userHasDefinedTargets
+    //     ? []
+    //     : require("./data/plugins.json");
+    // // 在innerPlugins和用户配置的include中去掉重复的部分。
+    // let includeFeature = require("lodash.uniq")([
+    //     ...innerPlugins,
+    //     ...transformInclude
+    // ]);
     targets = tgt || {
-        browsers: targetBrowsers || "chrome >= 58"
-    };
-    //如果配置了targets， 测不使用内置plugins
-    const innerPlugins = userHasDefinedTargets
-        ? []
-        : require("./data/plugins.json");
-    // 在innerPlugins和用户配置的include中去掉重复的部分。
-    let includeFeature = require("lodash.uniq")([
-        ...innerPlugins,
-        ...transformInclude
-    ]);
+        chrome: '45',
+        edge: '14',
+        ie: '10'
+    }
 
     let presets = [
             [
@@ -35,7 +39,7 @@ module.exports = function(options = {}) {
                 {
                     targets,
                     modules: env === "test" ? "commonjs" : false,
-                    include: includeFeature,
+                    include: transformInclude,
                     useBuiltIns: "usage",
                     debug: isDev
                 }
