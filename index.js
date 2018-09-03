@@ -4,7 +4,8 @@ module.exports = function(options = {}) {
     let {
         targets: tgt,
         transformInclude = [],
-        engines = ["react"]
+        engines = ["react"],
+        loose = true
     } = options;
 
     let strDev = "development";
@@ -41,16 +42,19 @@ module.exports = function(options = {}) {
                     modules: env === "test" ? "commonjs" : false,
                     include: transformInclude,
                     useBuiltIns: "usage",
-                    debug: isDev
+                    debug: isDev,
+                    loose
                 }
             ]
         ],
         plugins = [
-            "@babel/plugin-proposal-class-properties",
+            "@babel/plugin-syntax-dynamic-import",
             ["@babel/plugin-proposal-decorators", {
                 legacy: true
             }],
-            "@babel/plugin-syntax-dynamic-import",
+            ["@babel/plugin-proposal-class-properties", {
+                loose
+            }],
             "@babel/plugin-transform-runtime"
         ];
 
