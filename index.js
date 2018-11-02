@@ -5,7 +5,8 @@ module.exports = function(options = {}) {
         targets: tgt,
         transformInclude = [],
         engines = ["react"],
-        loose = true
+        loose = true,
+        modules = false
     } = options;
 
     let strDev = "development";
@@ -39,7 +40,7 @@ module.exports = function(options = {}) {
                 "@babel/preset-env",
                 {
                     targets,
-                    modules: env === "test" ? "commonjs" : false,
+                    modules: env === "test" ? "commonjs" : modules,
                     include: transformInclude,
                     useBuiltIns: "usage",
                     debug: isDev,
