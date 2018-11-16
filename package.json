@@ -1,6 +1,6 @@
 {
   "name": "@talentui/get-babel-config",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "talent ui 2.0 base babel configuration",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.0.0",
+    "babel-plugin-styled-components": "^1.8.0",
     "lodash.uniq": "^4.5.0"
   },
   "devDependencies": {
@@ -46,5 +47,10 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "files": [
+    "data",
+    "index.js",
+    "README.md"
+  ]
 }
