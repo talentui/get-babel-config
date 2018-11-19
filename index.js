@@ -75,7 +75,8 @@ module.exports = function(options = {}) {
         {
           ssr: false,
           displayName: !isProd,
-          fileName: !isProd
+          fileName: !isProd,
+          pure: isProd
         }
       ],
       ...plugins
