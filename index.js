@@ -6,7 +6,8 @@ module.exports = function(options = {}) {
     transformInclude = [],
     engines = ["react"],
     loose = true,
-    modules = false
+    modules = false,
+    typescript = false
   } = options;
 
   let strDev = "development";
@@ -87,6 +88,12 @@ module.exports = function(options = {}) {
         development: !isProd
       }
     ]);
+  }
+
+  if(typescript){
+    presets.push([
+      "@babel/preset-typescript"
+    ])
   }
 
   return {

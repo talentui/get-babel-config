@@ -1,6 +1,6 @@
 {
   "name": "@talentui/get-babel-config",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "talent ui 2.0 base babel configuration",
   "main": "index.js",
   "scripts": {
@@ -29,9 +29,9 @@
     "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/plugin-transform-typescript": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
     "@babel/runtime": "^7.0.0",
     "babel-plugin-styled-components": "^1.8.0",
     "lodash.uniq": "^4.5.0"
