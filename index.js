@@ -1,17 +1,18 @@
 // const envConst = require("../constants.js");
-const path = require("path");
+const path = require('path');
 module.exports = function(options = {}) {
   let {
     targets: tgt,
     transformInclude = [],
-    engines = ["react"],
+    engines = ['react'],
     loose = true,
     modules = false,
-    typescript = false
+    typescript = false,
+    corejs = 2
   } = options;
 
-  let strDev = "development";
-  let strProd = "production";
+  let strDev = 'development';
+  let strProd = 'production';
   const env = process.env.NODE_ENV || strDev;
 
   let isProd = env === strProd;
@@ -32,48 +33,49 @@ module.exports = function(options = {}) {
   //     ...transformInclude
   // ]);
   targets = tgt || {
-    chrome: "45",
-    edge: "14",
-    ie: "10"
+    chrome: '45',
+    edge: '14',
+    ie: '10'
   };
 
   let presets = [
       [
-        "@babel/preset-env",
+        '@babel/preset-env',
         {
           targets,
-          modules: env === "test" ? "commonjs" : modules,
+          modules: env === 'test' ? 'commonjs' : modules,
           include: transformInclude,
-          useBuiltIns: "usage",
+          useBuiltIns: 'usage',
           debug: !isProd,
+          corejs,
           loose
         }
       ]
     ],
     plugins = [
-      "@babel/plugin-syntax-dynamic-import",
+      '@babel/plugin-syntax-dynamic-import',
       [
-        "@babel/plugin-proposal-decorators",
+        '@babel/plugin-proposal-decorators',
         {
           legacy: true
         }
       ],
       [
-        "@babel/plugin-proposal-class-properties",
+        '@babel/plugin-proposal-class-properties',
         {
           loose
         }
       ],
-      "@babel/plugin-proposal-export-default-from",
-      "@babel/plugin-transform-runtime"
+      '@babel/plugin-proposal-export-default-from', //https://babeljs.io/docs/en/babel-plugin-proposal-export-default-from
+      '@babel/plugin-transform-runtime'
     ];
 
-  let hasReact = engines.indexOf("react") !== -1;
+  let hasReact = engines.indexOf('react') !== -1;
 
   if (hasReact) {
     plugins = [
       [
-        "babel-plugin-styled-components",
+        'babel-plugin-styled-components',
         {
           ssr: false,
           displayName: !isProd,
@@ -84,17 +86,15 @@ module.exports = function(options = {}) {
       ...plugins
     ];
     presets.push([
-      "@babel/preset-react",
+      '@babel/preset-react',
       {
         development: !isProd
       }
     ]);
   }
 
-  if(typescript){
-    presets.push([
-      "@babel/preset-typescript"
-    ])
+  if (typescript) {
+    presets.push(['@babel/preset-typescript']);
   }
 
   return {

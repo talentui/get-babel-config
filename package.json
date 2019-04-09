@@ -1,6 +1,6 @@
 {
   "name": "@talentui/get-babel-config",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "talent ui 2.0 base babel configuration",
   "main": "index.js",
   "scripts": {
