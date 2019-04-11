@@ -8,30 +8,16 @@ module.exports = function(options = {}) {
     loose = true,
     modules = false,
     typescript = false,
-    corejs = 2
+    corejs = 2,
+    buildProd
   } = options;
 
   let strDev = 'development';
   let strProd = 'production';
   const env = process.env.NODE_ENV || strDev;
 
-  let isProd = env === strProd;
+  let isProd = typeof buildProd === 'boolean' ? buildProd : env === strProd;
 
-  // const userHasDefinedTargets = !!(targetBrowsers || tgt);
-
-  // // 如果没有传递目标浏览器，则配置支持使用chrome > 58版本，减少plugins和polyfills的数量
-  // targets = tgt || {
-  //     browsers: targetBrowsers || "chrome >= 58"
-  // };
-  // //如果配置了targets， 测不使用内置plugins
-  // const innerPlugins = userHasDefinedTargets
-  //     ? []
-  //     : require("./data/plugins.json");
-  // // 在innerPlugins和用户配置的include中去掉重复的部分。
-  // let includeFeature = require("lodash.uniq")([
-  //     ...innerPlugins,
-  //     ...transformInclude
-  // ]);
   targets = tgt || {
     chrome: '45',
     edge: '14',
